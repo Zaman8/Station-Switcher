@@ -2,6 +2,6 @@
 #2 The Master Branch should always be a playable working game
 #3 To make pull requests @mention Zain or Tim to review it
 #4 Never accept your own pull request
-#5 To check out a branch post when you start and when you stop on #Checkouts on Slack (don't want confusion over branch)
+#5 To check out a branch post when you start and when you stop on #branch-checkout on Slack (don't want confusion over branch)
 #6 When the Master is updated, update your branch from it (so it works when pulled back)
 #7 Create Branches for Issues, to work on them
