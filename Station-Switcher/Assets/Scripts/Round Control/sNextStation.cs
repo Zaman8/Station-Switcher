@@ -5,7 +5,7 @@ using System;
 public class sNextStation : MonoBehaviour {
     sDialControl dial;
     Transform stationDial;
-    float station;
+    public GameObject station;
     float stationPosition;
 
      void Awake() {
@@ -16,10 +16,10 @@ public class sNextStation : MonoBehaviour {
     public void nextStation() {
         do {
             System.Random choser = new System.Random();
-            float nextStation = (float)((choser.NextDouble() * 20) + 89.7); //chose a random station from 89.7 to 109.7
-            station = nextStation; //make that the station
-            stationPosition = station; //convert from station to xy plane in unity (work on when we know spacing)
-        } while (stationPosition == stationDial.position.x);
+            float nextStation = (float)((choser.Next() * 20) + 89) + (float)(choser.Next()*0.5); //chose a random station from 89 to 109
+            station = GameObject.FindGameObjectWithTag(nextStation.ToString());
+            stationPosition = station.transform.position.x; //convert from station to xy plane in unity
+        } while (stationPosition == stationDial.position.x); //make sure isn't same station
         findDirection();
     }
 
@@ -31,5 +31,8 @@ public class sNextStation : MonoBehaviour {
             desiredDirection = 1;
 
         dial.setDesiredDirection(desiredDirection);
+    }
+    public float getStationPosition() {
+        return stationPosition;
     }
 }

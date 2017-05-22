@@ -24,7 +24,7 @@ public class sDialControl : MonoBehaviour {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
             Touch touch = Input.GetTouch(0);
             double radians = Math.Atan(touch.deltaPosition.x / (touch.deltaPosition.y)); //find theta (polar coordinates) using inverse Tangent and change in position since last update
-            theta = radians;
+            theta = radians; //note that Atan returns only in 1 and 4, so may need to be changed depending on effect
             direction = -1 * (int)(radians / Math.Abs(radians));
         }
         else {
@@ -32,7 +32,7 @@ public class sDialControl : MonoBehaviour {
             direction = 0;
         }
     }
-   public void setDesiredDirection(int direction) {
+   public void setDesiredDirection(int direction) { //called from round control, after determining which way the dial needs to go
         desiredDirection = direction;
     }
 }
