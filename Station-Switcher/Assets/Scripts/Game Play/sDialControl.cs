@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class sDialControl : MonoBehaviour {
-    private int direction = 0; //+ is counterclockwise; - is clockwise (-1, 0, 1)
+    private int direction = 0; //- is counterclockwise; + is clockwise (-1, 0, 1)
     private int desiredDirection = 0;
     public double theta;
     Transform rotator;
@@ -16,7 +16,7 @@ public class sDialControl : MonoBehaviour {
         getDirection();
         if (direction == desiredDirection) {
             rotator.Rotate(rotator.position, (float)(theta * (180/Math.PI)), Space.Self); //rotate game object by theta in degrees
-            //call function or event to station
+            //call function or event to station dial to move
           }
     }
 
@@ -24,15 +24,15 @@ public class sDialControl : MonoBehaviour {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
             Touch touch = Input.GetTouch(0);
             double radians = Math.Atan(touch.deltaPosition.x / (touch.deltaPosition.y)); //find theta (polar coordinates) using inverse Tangent and change in position since last update
-            theta = radians;
-            direction = (int)(radians / Math.Abs(radians));
+            theta = radians; //note that Atan returns only in 1 and 4, so may need to be changed depending on effect
+            direction = -1 * (int)(radians / Math.Abs(radians));
         }
         else {
             theta = 0;
             direction = 0;
         }
     }
-   void setDesiredDirection(int direction) {
+   public void setDesiredDirection(int direction) { //called from round control, after determining which way the dial needs to go
         desiredDirection = direction;
     }
 }
