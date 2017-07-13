@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Radio.unity
+- path: Assets/Scenes/Radio.unity
   isLoaded: 1
   isActive: 1
