@@ -12,6 +12,9 @@ public class roundManager : MonoBehaviour {
     public delegate void updateGUI(double timer, int round);
     public static event updateGUI GUIupdate; //event for the scoring gui to update the timer and round display
 
+    public delegate void playstate(int round);
+    public static event playstate Lost;
+
     // Use this for initialization
     void Start() {
         dialDetect.scored += newRoundman; //call newRoundman when the ticks return a win/score
@@ -45,6 +48,7 @@ public class roundManager : MonoBehaviour {
 
     private void Lose() {
         lost = true;
+        Lost(roundNum);
         Debug.Log("You lost");
     }
 
