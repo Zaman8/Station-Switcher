@@ -13,12 +13,13 @@ public class controllerIO : MonoBehaviour {
     void Start () {
         dial = GameObject.FindGameObjectWithTag("Dial").GetComponent<Rigidbody2D>();
         roundManager.newRound += direction;
+
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {  
         int rotation = (int)Input.GetAxisRaw("Horizontal");
-        if(rotation == dir && dial.transform.position.x > -2.83 && dial.transform.position.x < 4.795) { 
+        if(rotation == dir && dial.transform.position.x > -2.83 && dial.transform.position.x < 4.795 && !pause.paused) { 
             gameObject.GetComponent<Rigidbody2D>().MoveRotation(gameObject.GetComponent<Rigidbody2D>().rotation + (-1*(dir * rotSpeed)));
             dial.MovePosition(new Vector2(dial.position.x + (dir * dialSpeed), dial.position.y));
         }

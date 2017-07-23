@@ -6,6 +6,7 @@ public class roundManager : MonoBehaviour {
     private double time = 8; //time left in round
     private bool lost = false; //control to end previous timer so we can start new
 
+    
     public delegate void startNewRound(dialDetect winner);
     public static event startNewRound newRound; //event for ticks to reset and controller to calcuate direction
 
@@ -13,15 +14,17 @@ public class roundManager : MonoBehaviour {
     public static event updateGUI GUIupdate; //event for the scoring gui to update the timer and round display
 
     public delegate void playstate(int round);
-    public static event playstate Lost;
+    public static event playstate Lost; //event for setting the gameover screen with correct info
+
+    [SerializeField]
+    GameObject gameOverScreen;
 
     // Use this for initialization
     void Start() {
         dialDetect.scored += newRoundman; //call newRoundman when the ticks return a win/score
-        bool pass = false;
-        while (!pass) {
+        while (true) {
             if (GameObject.FindGameObjectsWithTag("tick").Length > 0)
-                pass = true;
+                break;
         }
         newRoundman();
     }
@@ -48,17 +51,20 @@ public class roundManager : MonoBehaviour {
 
     private void Lose() {
         lost = true;
+        gameOverScreen.SetActive(true);
         Lost(roundNum);
-        Debug.Log("You lost");
+        Debug.Log("Lost called");
     }
 
     private void Update() {
-        if (!lost) {
+        if (!lost && !pause.paused) {
             time -= Time.deltaTime;
             GUIupdate(time, roundNum);
 
-            if (time <= 0)
+            if (time <= 0) {
+                GUIupdate(0, roundNum);
                 Lose();
+            }
         }
     }
 }

@@ -8,14 +8,15 @@ using System.IO;
 
 public class HSDisplay : MonoBehaviour {
     Text text;
-    private int HighScore;
+    private int HighScore = 0;
 
     // Use this for initialization
     void Awake() {
-        text = this.GetComponent<Text>();
+        text = this.gameObject.GetComponent<Text>();
         roundManager.GUIupdate += checkHighScore;
         roundManager.Lost += Save;
         HighScore = Load();
+        text.text = string.Format("High Score: {0}", HighScore);
     }
 
     void checkHighScore(double time, int round) {
@@ -42,7 +43,7 @@ public class HSDisplay : MonoBehaviour {
         if (File.Exists(Application.persistentDataPath + "/playerInfo.dat")) {
             BinaryFormatter bf = new BinaryFormatter();
 
-            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.OpenOrCreate);
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
 
