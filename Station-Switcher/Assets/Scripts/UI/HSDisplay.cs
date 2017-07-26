@@ -22,7 +22,7 @@ public class HSDisplay : MonoBehaviour {
     void checkHighScore(double time, int round) {
         if (round > HighScore) {
             HighScore = round;
-            text.text = String.Format("High Score: {0}", HighScore);
+            text.text = string.Format("High Score: {0}", HighScore);
         }
     }
 
@@ -58,4 +58,5 @@ public class HSDisplay : MonoBehaviour {
 [Serializable]
 class PlayerData {
     public int HighScore;
+    public bool Mute = false;
 }
